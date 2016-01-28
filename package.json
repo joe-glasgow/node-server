@@ -12,7 +12,8 @@
     "url": "git://github.com/developit/express-es6-rest-api.git"
   },
   "author": "Jason Miller <jason@developit.ca>",
-  "license": "UNLICENSED",
+
+  "license": "Proprietary",
   "dependencies": {
     "babel": "^5.8.21",
     "body-parser": "^1.13.3",
@@ -26,4 +27,5 @@
   },
   "homepage": "https://github.com/developit/express-es6-rest-api#readme",
   "devDependencies": {}
+  }
 }
