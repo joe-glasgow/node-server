@@ -22,5 +22,8 @@
   "homepage": "https://github.com/joe-glasgow/node-server#readme",
   "dependencies": {
     "express": "^4.13.4"
+  },
+  "devDependencies": {
+    "body-parser": "^1.14.2"
   }
 }
