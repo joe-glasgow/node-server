@@ -1,0 +1,26 @@
+{
+  "name": "node-server",
+  "version": "0.0.1",
+  "description": "https://html5hive.org/how-to-create-rest-api-with-node-js-and-express/",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joe-glasgow/node-server.git"
+  },
+  "keywords": [
+    "node",
+    "server"
+  ],
+  "author": "Ben Sparks (@Warspawn)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joe-glasgow/node-server/issues"
+  },
+  "homepage": "https://github.com/joe-glasgow/node-server#readme",
+  "dependencies": {
+    "express": "^4.13.4"
+  }
+}
