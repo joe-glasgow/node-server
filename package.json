@@ -4,6 +4,7 @@
   "description": "https://html5hive.org/how-to-create-rest-api-with-node-js-and-express/",
   "main": "index.js",
   "scripts": {
+
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
