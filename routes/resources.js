@@ -2,9 +2,23 @@
 const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
+const cors = require('cors');
+const MongoClient = require('mongodb').MongoClient;
+const assert = require('assert');
+// Connection URL
+let url = 'mongodb://localhost:27017/myproject';
+// Use connect method to connect to the Server
+MongoClient.connect(url, function(err, db) {
+  assert.equal(null, err);
+  console.log("Connected correctly to server");
+
+  db.close();
+});
+
 //parser
 router.use(bodyParser.json()); // for parsing application/json
 router.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+router.use(cors());
 // data
 let resources = [{
   id: 1,
@@ -12,11 +26,11 @@ let resources = [{
 }];
 // GET
 router.get('/',  (req, res) => {
-  res.send('Hello World')
+  return res.send('Hello World')
 });
 // resources
 router.get('/resources', (req, res) => {
-  res.send(resources);
+  return res.send(resources);
 });
 // resource
 router.get('/resources/:id', (req, res) => {
@@ -41,37 +55,49 @@ router.post('/resources', (req, res) => {
   // add id
   resources.push(item);
   // send the response of new resource
-  res.send('/resources/' + parseInt(item.id, 10));
+  return res.send('/resources/' + parseInt(item.id, 10));
 });
 // PUT
-router.put('/resources/:id', (req, res) => {
-  // get id from request
-  let id = parseInt(req.body.id, 10);
-  // find existing id in resources
-  let existingItem = resources.filter(r => r.id === id)[0];
-  // if it doesn't exist
-  if(!existingItem) {
-    let item = req.body;
-    item.id = id;
-    resources.push(item);
-    res.setHeader('Location', '/resources/' + id);
-    res.sendStatus(201)
+router.put('/resources', (req, res) => {
+  // we have an id to put
+  if (req.body.id) {
+    // get id from request
+    let id = parseInt(req.body.id, 10);
+    // find existing id in resources
+    let existingItem = resources.filter(r => r.id === id)[0];
+    // if it doesn't exist
+    if(!existingItem) {
+      let item = req.body;
+      item.id = id;
+      resources.push(item);
+      res.setHeader('Location', '/resources/' + id);
+      return res.sendStatus(201)
+    } else {
+      existingItem.name = req.body.name;
+      return res.sendStatus(204);
+    }
   } else {
-    existingItem.name = req.body.name;
-    res.sendStatus(204);
+    // ID not found
+    return res.sendStatus(400);
   }
 });
-
 // DELETE
-router.delete('/resources/:id', (req, res) => {
-  let id = parseInt(req.body.id, 10);
-  let existingItem = resources.filter(r => r.id === id)[0];
+router.delete('/resources', (req, res) => {
+  // we have an id to delete
+  if (req.body.id) {
+    let id = parseInt(req.body.id, 10);
+    let existingItem = resources.filter(r => r.id === id)[0];
 
-  if (!existingItem) {
-    return res.sendStatus(404)
+    if (!existingItem) {
+      return res.sendStatus(404)
+    }
+    resources = resources.filter(r => r.id !== id);
+    return res.sendStatus(204)
+  } else {
+    // ID not found
+    return res.sendStatus(400);
   }
-  resources = resources.filter(r => r.id !== id);
-  res.sendStatus(204)
+
 });
 
 module.exports = router;

@@ -4,7 +4,6 @@
   "description": "https://html5hive.org/how-to-create-rest-api-with-node-js-and-express/",
   "main": "index.js",
   "scripts": {
-
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -22,7 +21,10 @@
   },
   "homepage": "https://github.com/joe-glasgow/node-server#readme",
   "dependencies": {
-    "express": "^4.13.4"
+    "cors": "^2.7.1",
+    "express": "^4.13.4",
+    "kerberos": "0.0.18",
+    "mongodb": "^2.1.4"
   },
   "devDependencies": {
     "body-parser": "^1.14.2"
